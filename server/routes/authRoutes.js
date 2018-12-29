@@ -8,7 +8,13 @@ module.exports = (app) => {
 		'/auth/google', 
 		passport.authenticate('google', {
 			scope: ['profile', 'email']
-		})
+		}),
+		// if google send token error, redirect to the login page
+		(err, req, res, next) => {
+			if (err.name === 'TokenError') {
+				res.redirect('/auth/google');
+			} 
+		}
 	);
 
 	// route handler to handle callback from google oauth response.
