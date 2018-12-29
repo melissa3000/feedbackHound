@@ -22,4 +22,9 @@ module.exports = (app) => {
 	app.get(
 		'/auth/google/callback', 
 			passport.authenticate ('google'));
+	
+	// test that user authentication worked
+	app.get('/api/current_user', (req, res) => {
+		res.send(req.user);
+	});
 };
