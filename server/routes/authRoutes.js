@@ -19,12 +19,18 @@ module.exports = (app) => {
 
 	// route handler to handle callback from google oauth response.
 	// passport uses the user's oauth code to exchange it for the user's profie at google
-	app.get('/auth/google/callback', passport.authenticate ('google'));
+	app.get(
+		'/auth/google/callback', 
+		passport.authenticate ('google'),
+		(req, res) => {
+			res.redirect('/surveys');
+		}
+	);
 
 	// use built in logout method from passport
 	app.get('/api/logout', (req, res) => {
 		req.logout();
-		res.send(req.user);
+		res.redirect('/');
 	});
 	
 	// test that user authentication worked
