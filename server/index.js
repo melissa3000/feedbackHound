@@ -30,6 +30,18 @@ app.use(passport.session());
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
 
+// make sure express behaves correctly in the production environment
+if (process.env.NODE_ENV === 'production') {
+	// Express will serve up production assets like main.js or main.css
+	app.use(express.static('client/build'));
+
+	// Express will serve up index.html file if it doesn't recognize the route
+	const path = require('path');
+	app.get('*', (req, res) => {
+		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+	});
+}
+
 // Allow dynamic port binding for deployment to Heroku
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
