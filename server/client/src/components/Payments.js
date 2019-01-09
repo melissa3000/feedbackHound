@@ -8,7 +8,6 @@ import * as actions from '../actions';
 // authorizing the charge
 class Payments extends Component {
 	render() {
-		console.log('PAYMENTS KEY: ', process.env.REACT_APP_STRIPE_KEY);
 		return (
 			<StripeCheckout 
 				name="Feedback Hound"
